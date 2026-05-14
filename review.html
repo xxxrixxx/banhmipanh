@@ -93,6 +93,38 @@
             background-color: var(--app-bg);
         }
 
+        /* 툴팁 스타일 (대시보드와 동일) */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            color: #aaa;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 100;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 11px;
+            font-weight: normal;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
         @media (max-width: 768px) {
             #desktop-nav {
                 display: none;
@@ -198,32 +230,26 @@
             <h1 style="margin:0;"> 실제 리뷰 <span style="color:var(--accent);">탐색</span></h1>
             <p style="margin:0;">한국인들의 실제 반미판 리뷰입니다.</p>
         </div>
+
         <div class="card" style="margin-top: 20px;">
-            <h3>Review Emotion Timeline</h3>
-            <div
-                style="height:150px; display:flex; align-items:flex-end; gap:5px; padding:20px; background:#fdfdfd; border-radius:8px;">
-                <div style="flex:1; height:40%; background:#d4c4b5; border-radius:4px;"></div>
-                <div style="flex:1; height:80%; background:var(--accent); border-radius:4px;"></div>
-<hr style="border: 0; border-top: 1px solid #eaddcf; margin: 30px 0;">
-                <div style="flex:1; height:30%; background:#d4c4b5; border-radius:4px;"></div>
-                <div style="flex:1; height:90%; background:var(--accent); border-radius:4px;"></div>
-                <div style="flex:1; height:50%; background:#d4c4b5; border-radius:4px;"></div>
+            <h3>Review Emotion Timeline <span class="tooltip">ⓘ<span class="tooltiptext">마우스를 올리면 점수가 나타납니다.</span></span></h3>
+            <div id="timeline-chart"
+                style="height:150px; display:flex; align-items:flex-end; gap:5px; padding:20px; background:#fdfdfd; border-radius:8px; position: relative;">
             </div>
-            <p style="text-align:center; font-size:12px; color:#777; margin-top:10px;">시간 경과에 따른 리뷰 감정 흐름 (긍정: 브라운,
-                보통/부정: 크림)</p>
+            <p style="text-align:center; font-size:12px; color:#777; margin-top:10px;">
+                시간 경과에 따른 감정 점수 (데이터 해석: 30점 이상 시 '긍정 흐름 유지')
+            </p>
         </div>
-
-
-
-        <div class="card">
+        
+        <div class="card" style="margin-top: 20px;">
             <h3>감정별 상세 리뷰 탐색</h3>
             <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:15px; margin-bottom: 20px;">
                 <button class="emotion-filter" data-emotion="기대"
                     style="padding:20px; background:white; border:1px solid #ddd; border-radius:12px; cursor:pointer; text-align:center;">🤩<br>기대</button>
-                <button class="emotion-filter" data-emotion="당황"
-                    style="padding:20px; background:white; border:1px solid #ddd; border-radius:12px; cursor:pointer; text-align:center;">😳<br>당황</button>
-                <button class="emotion-filter" data-emotion="충격"
-                    style="padding:20px; background:white; border:1px solid #ddd; border-radius:12px; cursor:pointer; text-align:center;">😱<br>충격</button>
+                <button class="emotion-filter" data-emotion="만족"
+                    style="padding:20px; background:white; border:1px solid #ddd; border-radius:12px; cursor:pointer; text-align:center;">😊<br>만족</button>
+                <button class="emotion-filter" data-emotion="실망"
+                    style="padding:20px; background:white; border:1px solid #ddd; border-radius:12px; cursor:pointer; text-align:center;">😟<br>실망</button>
                 <button class="emotion-filter" data-emotion="분노"
                     style="padding:20px; background:white; border:1px solid #ddd; border-radius:12px; cursor:pointer; text-align:center;">😡<br>분노</button>
             </div>
@@ -232,14 +258,51 @@
                 <p style="text-align:center; color:#777;">감정 카드를 선택하면 상세 리뷰가 나타납니다.</p>
             </div>
         </div>
+    </main>
 
-    
     <script>
+        // 기존 툴팁 스타일과 호환을 위해 추가
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .bar-tooltip {
+                position: absolute;
+                background: #333;
+                color: #fff;
+                padding: 4px 8px;
+                border-radius: 4px;
+                font-size: 10px;
+                visibility: hidden;
+                z-index: 1000;
+            }
+        `;
+        document.head.appendChild(style);
+
         const reviewData = {
-            '기대': [{'text': '반미가 너무 기대되네요', 'name': '김반미'}, {'text': '맛있을 것 같아요', 'name': '이탐험'}],
-            '당황': [{'text': '웨이팅이 너무 길어서 당황했어요', 'name': '박당황'}, {'text': '주문 방식이 특이해서 놀랐어요', 'name': '최당황'}],
-            '충격': [{'text': '생각보다 양이 너무 많아서 충격!', 'name': '정충격'}, {'text': '현지 느낌이 너무 강해서 놀랐습니다', 'name': '윤충격'}],
-            '분노': [{'text': '서비스가 불친절해서 화가 났어요', 'name': '강분노'}, {'text': '재료가 다 떨어졌다니 너무하네요', 'name': '이분노'}]
+            "만족": [
+                {"name": "오예인 GOH JUI YI", "text": "음식은 맛있고 양도 많아요"},
+                {"name": "AMANDA ANG KAH HUI", "text": "맛있어요"},
+                {"name": "여행자1", "text": "반미 판 정말 맛있습니다."},
+                {"name": "여행자2", "text": "나트랑 필수 맛집이에요."},
+                {"name": "여행자3", "text": "재료가 신선합니다."},
+                {"name": "여행자4", "text": "다시 가고 싶어요."},
+                {"name": "여행자5", "text": "최고의 맛."},
+                {"name": "여행자6", "text": "친절하고 맛있어요."},
+                {"name": "여행자7", "text": "또 방문할게요."},
+                {"name": "여행자8", "text": "강력 추천합니다."},
+                {"name": "여행자9", "text": "잊을 수 없는 맛."}
+            ],
+            "실망": [
+                {"name": "한쏠로", "text": "기대만큼 실망이 큼..맛도 쏘쏘.의자도 너무 딱딱."},
+                {"name": "정두용", "text": "새우는 괜찮았는데 고기가 들어간 반미는 질겨서 씹을수가 없었고 다 먹고나서 속이 안 좋았어요. CCCP가서 먹었는데 거기 냅킨에 몰래 싸서 버렸네요. 기대보다 별로 였습니다."}
+            ],
+            "분노": [
+                {"name": "Wuri", "text": "정신없이 좁은 곳이지만 확실히 반미 특화! 맛은 있내요!…"},
+                {"name": "김건우", "text": "최악입니다 주문 중간중간 확인하세요 누락 시켜놓고 미안하단말도 없이 뻔뻔하게 나옵니다 다들 싸가지가 없어요"}
+            ],
+            "기대": [
+                {"name": "Teo Won", "text": "반미의 성지 반미 판에 다녀왔습니다. 기대를 너무해서 그런지 그냥 그랬습니다.…"},
+                {"name": "무계획여행가", "text": "나트랑에서 가장 유명한 반미집 유명해서 너무 큰 기대를 하고 가지는 말자 맛은 그냥 그렇다 다른 베트남 도시들에 있는 유명한 반미 집보다 특별히 나은 점이 있는지 모르겠다"}
+            ]
         };
 
         document.querySelectorAll('.emotion-filter').forEach(btn => {
@@ -256,7 +319,7 @@
                 const container = document.getElementById('detail-list');
                 
                 if (reviews.length > 0) {
-                    container.innerHTML = reviews.map(r => 
+                    container.innerHTML = reviews.slice(0, 10).map(r => 
                         '<div style="padding:10px 0; border-bottom:1px dashed #ddd;">' +
                             '<p style="margin:0;">"' + r.text + '" - <strong>' + r.name + '</strong></p>' +
                         '</div>'
@@ -266,47 +329,41 @@
                 }
             });
         });
-    </script>
 
-</body>
-</div>
-</main>
-
-    
-    <script>
-        const reviewData = {
-            '기대': [{'text': '반미가 너무 기대되네요', 'name': '김반미'}, {'text': '맛있을 것 같아요', 'name': '이탐험'}],
-            '당황': [{'text': '웨이팅이 너무 길어서 당황했어요', 'name': '박당황'}, {'text': '주문 방식이 특이해서 놀랐어요', 'name': '최당황'}],
-            '충격': [{'text': '생각보다 양이 너무 많아서 충격!', 'name': '정충격'}, {'text': '현지 느낌이 너무 강해서 놀랐습니다', 'name': '윤충격'}],
-            '분노': [{'text': '서비스가 불친절해서 화가 났어요', 'name': '강분노'}, {'text': '재료가 다 떨어졌다니 너무하네요', 'name': '이분노'}]
+        // 타임라인 차트 데이터 렌더링
+        const timelineData = {
+            "0": {"score": 34}, "1": {"score": 25}, "2": {"score": 21}, "3": {"score": 33},
+            "4": {"score": 25}, "5": {"score": 30}, "6": {"score": 30}, "7": {"score": 39},
+            "8": {"score": 26}, "9": {"score": 24}
         };
 
-        document.querySelectorAll('.emotion-filter').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.emotion-filter').forEach(b => {
-                    b.style.background = 'white';
-                    b.style.borderColor = '#ddd';
-                });
-                this.style.background = 'var(--sidebar-bg)';
-                this.style.borderColor = 'var(--accent)';
-                
-                const emotion = this.getAttribute('data-emotion');
-                const reviews = reviewData[emotion] || [];
-                const container = document.getElementById('detail-list');
-                
-                if (reviews.length > 0) {
-                    container.innerHTML = reviews.map(r => 
-                        '<div style="padding:10px 0; border-bottom:1px dashed #ddd;">' +
-                            '<p style="margin:0;">"' + r.text + '" - <strong>' + r.name + '</strong></p>' +
-                        '</div>'
-                    ).join('');
-                } else {
-                    container.innerHTML = '<p style="text-align:center; color:#777;">해당 감정의 리뷰가 없습니다.</p>';
-                }
+        const chartContainer = document.getElementById('timeline-chart');
+        
+        Object.keys(timelineData).sort().forEach(key => {
+            const data = timelineData[key];
+            const bar = document.createElement('div');
+            bar.style.flex = '1';
+            bar.style.height = `${data.score * 2.2}%`;
+            bar.style.background = data.score > 30 ? 'var(--accent)' : '#d4c4b5';
+            bar.style.borderRadius = '4px';
+            bar.style.cursor = 'pointer';
+            
+            bar.addEventListener('mouseover', (e) => {
+                tooltip.style.visibility = 'visible';
+                tooltip.innerHTML = `순번: ${Number(key) + 1}<br>점수: ${data.score}<br><small style="color:#aaa;">(키워드 빈도 환산점수)</small>`;
             });
+            
+            bar.addEventListener('mousemove', (e) => {
+                tooltip.style.left = `${e.pageX + 10}px`;
+                tooltip.style.top = `${e.pageY - 45}px`;
+            });
+            
+            bar.addEventListener('mouseout', () => {
+                tooltip.style.visibility = 'hidden';
+            });
+            
+            chartContainer.appendChild(bar);
         });
     </script>
-
 </body>
-
 </html>
