@@ -103,41 +103,41 @@
 
         .header {
             margin-bottom: 30px;
-
-            .tooltip {
-                position: relative;
-                display: inline-block;
-                cursor: help;
-                margin-left: 5px;
-                color: #aaa;
-            }
-
-            .tooltip .tooltiptext {
-                visibility: hidden;
-                width: 120px;
-                background-color: #333;
-                color: #fff;
-                text-align: center;
-                border-radius: 6px;
-                padding: 5px;
-                position: absolute;
-                z-index: 1;
-                bottom: 125%;
-                left: 50%;
-                margin-left: -60px;
-                opacity: 0;
-                transition: opacity 0.3s;
-                font-size: 11px;
-                font-weight: normal;
-            }
-
-            .tooltip:hover .tooltiptext {
-                visibility: visible;
-                opacity: 1;
-            }
         }
 
-                /* 카드 스타일 */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            margin-left: 5px;
+            color: #aaa;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 100;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 11px;
+            font-weight: normal;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* 카드 스타일 */
         .grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -182,6 +182,17 @@
             .grid {
                 grid-template-columns: 1fr;
             }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
         }
     </style>
 </head>
@@ -301,7 +312,7 @@
                         <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
                         <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
                     </svg>
-                    SNS 기대감
+                    SNS 기대감 <span class="tooltip">ⓘ<span class="tooltiptext">SNS 데이터 기반 예상 반응도</span></span>
                 </h3>
                 <div style="display:flex; align-items:center; gap:15px; margin-top:10px;">
                     <svg width="60" height="60" viewBox="0 0 36 36">
@@ -320,7 +331,7 @@
                         <circle cx="12" cy="12" r="10"></circle>
                         <polyline points="12 6 12 12 16 14"></polyline>
                     </svg>
-                    웨이팅 기대치
+                    웨이팅 기대치 <span class="tooltip">ⓘ<span class="tooltiptext">리뷰 언급된 웨이팅 지수</span></span>
                 </h3>
                 <div style="display:flex; align-items:center; gap:15px; margin-top:10px;">
                     <svg width="60" height="60" viewBox="0 0 36 36">
@@ -340,7 +351,7 @@
                             d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
                         </path>
                     </svg>
-                    방문 기대지수
+                    방문 기대지수 <span class="tooltip">ⓘ<span class="tooltiptext">여행객의 기대 수준</span></span>
                 </h3>
                 <div style="display:flex; align-items:center; gap:15px; margin-top:10px;">
                     <svg width="60" height="60" viewBox="0 0 36 36">
@@ -361,7 +372,7 @@
                         <path d="M12 2v20" />
                         <path d="M2 12h20" />
                     </svg>
-                    유명세 점수
+                    유명세 점수 <span class="tooltip">ⓘ<span class="tooltiptext">온라인 종합 유명도</span></span>
                 </h3>
                 <div style="display:flex; align-items:center; gap:15px; margin-top:10px;">
                     <svg width="60" height="60" viewBox="0 0 36 36">
@@ -375,7 +386,7 @@
             </div>
         </div>
 
-        <div class="grid" style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 30px;">
+        <div class="chart-grid">
 
             <!-- 1. 방문 동기 TOP 5 -->
             <div class="card">
@@ -427,14 +438,11 @@
 
             </div>
 
-            <div class="grid">
+            <!-- SNS 기대 분석 -->
+            <div class="card">
+                <h3>SNS 기대 분석 <span class="tooltip">ⓘ<span class="tooltiptext">언급량,기대감,만족도 통합 비교</span></span></h3>
 
-                <!-- SNS 기대 분석 -->
-                <div class="card">
-                    <h3>SNS 기대 분석 <span class="tooltip">ⓘ<span class="tooltiptext">언급량,기대감,만족도
-                                통합 비교</span></span></h3>
-
-                    <div style="
+                <div style="
             height:200px;
             display:flex;
             align-items:flex-end;
@@ -443,46 +451,45 @@
             gap:10px;
         ">
 
-                        <div style="text-align:center;">
-                            <div style="
+                    <div style="text-align:center;">
+                        <div style="
                     height:120px;
                     width:40px;
                     background:var(--accent);
                     border-radius:6px;
                 "></div>
 
-                            <div style="font-size:11px;">
-                                언급량<br>581
-                            </div>
+                        <div style="font-size:11px;">
+                            언급량<br>581
                         </div>
+                    </div>
 
-                        <div style="text-align:center;">
-                            <div style="
+                    <div style="text-align:center;">
+                        <div style="
                     height:60px;
                     width:40px;
                     background:#d4c4b5;
                     border-radius:6px;
                 "></div>
 
-                            <div style="font-size:11px;">
-                                기대감<br>58
-                            </div>
+                        <div style="font-size:11px;">
+                            기대감<br>58
                         </div>
+                    </div>
 
-                        <div style="text-align:center;">
-                            <div style="
+                    <div style="text-align:center;">
+                        <div style="
                     height:90px;
                     width:40px;
                     background:#a67c52;
                     border-radius:6px;
                 "></div>
 
-                            <div style="font-size:11px;">
-                                만족도<br>322
-                            </div>
+                        <div style="font-size:11px;">
+                            만족도<br>322
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
