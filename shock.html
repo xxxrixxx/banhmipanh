@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bánh Mì 탐험지도</title>
+    <style>
+        :root {
+            --app-bg: #f9f7f4;
+            --sidebar-bg: #f5efe9;
+            --main-bg: #ffffff;
+            --text-main: #333333;
+            --text-secondary: #777777;
+            --accent: #a67c52;
+            --border-radius: 12px;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'AppleSDGothicNeo-Regular', 'Malgun Gothic', sans-serif;
+            background-color: var(--app-bg);
+            display: flex;
+            height: 100vh;
+            color: var(--text-main);
+        }
+
+        #desktop-nav {
+            width: 240px;
+            background-color: var(--sidebar-bg);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #eaddcf;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 22px;
+            margin-bottom: 50px;
+            color: #444;
+        }
+
+        .menu-item {
+            padding: 12px 15px;
+            margin: 5px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .menu-item.active {
+            background-color: #eaddcf;
+        }
+
+        #mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--sidebar-bg);
+            justify-content: space-around;
+            padding: 8px 0;
+            border-top: 1px solid #eaddcf;
+            z-index: 1000;
+        }
+
+        #mobile-nav .menu-item {
+            flex-direction: column;
+            padding: 5px;
+            font-size: 12px;
+            margin: 0;
+            text-decoration: none;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+        }
+
+        #mobile-nav .menu-item span {
+            margin-bottom: 2px;
+            font-size: 16px;
+        }
+
+        main {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            background-color: var(--app-bg);
+        }
+
+        @media (max-width: 768px) {
+            #desktop-nav {
+                display: none;
+            }
+
+            #mobile-nav {
+                display: flex;
+            }
+
+            main {
+                padding-bottom: 80px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="desktop-nav">
+        <div class="logo">Bánh Mì 탐험지도</div>
+        <a href="dashboard.html" class="menu-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="margin-right:10px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon>
+            </svg> 탐험
+        </a>
+        <a href="mental_break.html" class="menu-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="margin-right:10px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 9h.01M16 9h.01M12 16c-2.2 0-4-1.8-4-4h8c0 2.2-1.8 4-4 4z"></path>
+            </svg> 멘붕
+        </a>
+        <a href="shock.html" class="menu-item active">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="margin-right:10px;">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+            </svg> 충격
+        </a>
+        <a href="review.html" class="menu-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="margin-right:10px;">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+            </svg> 후기
+        </a>
+        <hr style="width: 80%; border: 0; border-top: 1px solid #eaddcf; margin: 20px auto;">
+        <a href="region.html" class="menu-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="margin-right:10px;">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+            </svg> 국가별 리뷰
+        </a>
+        <a href="insight.html" class="menu-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="margin-right:10px;">
+                <path
+                    d="M15 14c.2-1 .7-1.7 1.5-2.5C18 10 18 8 16.5 6.5S13 5 11.5 6.5 10 10 11 11.5c.8.8 1.3 1.5 1.5 2.5">
+                </path>
+                <path d="M9 18h6"></path>
+                <path d="M10 22h4"></path>
+            </svg> 데이터 정보
+        </a>
+    </nav>
+    <nav id="mobile-nav">
+        <a href="dashboard.html" class="menu-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="margin-bottom:2px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon>
+            </svg> 탐험
+        </a>
+        <a href="mental_break.html" class="menu-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="margin-bottom:2px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 9h.01M16 9h.01M12 16c-2.2 0-4-1.8-4-4h8c0 2.2-1.8 4-4 4z"></path>
+            </svg> 멘붕
+        </a>
+        <a href="shock.html" class="menu-item active">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="margin-bottom:2px;">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+            </svg> 충격
+        </a>
+        <a href="review.html" class="menu-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="margin-bottom:2px;">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+            </svg> 후기
+        </a>
+    </nav>
+    <main>
+        <div class="header">
+            <h1 style="margin:0;">반미로 만난 베트남 <span style="color:var(--accent);">문화충격</span></h1>
+            <p style="color:var(--text-secondary);">베트남 음식은 단순한 맛이 아니라 거리 문화와 생활 방식이 담긴 경험입니다.</p>
+        </div>
+
+        <div class="grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+            <!-- 히트맵 -->
+            <div class="card" style="grid-column: span 2; padding:0; overflow:hidden;">
+                <div
+                    style="background:#f5efe9; padding:15px 20px; border-bottom:1px solid #eaddcf; font-weight:bold; color:var(--text-main);">
+                    Culture Shock Heatmap (키워드 빈도)</div>
+                <div
+                    style="height:150px; display:flex; align-items:center; justify-content:space-around; padding:20px; font-size:14px; background:#fdfdfd;">
+                    <div style="background:#eaddcf; padding:15px; border-radius:8px;">웨이팅 (빈도: 45)</div>
+                    <div style="background:#d4c4b5; padding:15px; border-radius:8px;">향신료 (빈도: 28)</div>
+                    <div style="background:#c5b09d; padding:15px; border-radius:8px;">서비스 (빈도: 20)</div>
+                    <div style="background:#a67c52; padding:15px; border-radius:8px; color:white;">문화충격 (빈도: 55)</div>
+                </div>
+            </div>
+
+            <!-- 비교 카드 -->
+            <div class="card" style="padding:0; overflow:hidden;">
+                <div
+                    style="background:#f5efe9; padding:15px 20px; border-bottom:1px solid #eaddcf; font-weight:bold; color:var(--text-main);">
+                    Cultural Comparison (현지인 vs 관광객)</div>
+                <div style="padding:20px; font-size:14px; background:#fdfdfd;">
+                    <div style="margin-bottom:10px;">관광객 선호: 소고기/새우 치즈 (85%)</div>
+                    <div style="width:100%; height:10px; background:#eee; border-radius:5px;">
+                        <div style="width:85%; height:100%; background:var(--accent); border-radius:5px;"></div>
+                    </div>
+                    <div style="margin:15px 0 10px 0;">현지인 입맛: 믹스/기본 (40%)</div>
+                    <div style="width:100%; height:10px; background:#eee; border-radius:5px;">
+                        <div style="width:40%; height:100%; background:#d4c4b5; border-radius:5px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 레이더 차트 -->
+            <div class="card" style="padding:0; overflow:hidden;">
+                <div
+                    style="background:#f5efe9; padding:15px 20px; border-bottom:1px solid #eaddcf; font-weight:bold; color:var(--text-main);">
+                    Spice Radar Chart</div>
+                <div
+                    style="height:180px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fdfdfd; padding:20px;">
+                    <svg width="120" height="120" viewBox="0 0 100 100">
+                        <polygon points="50,10 90,40 75,90 25,90 10,40" fill="none" stroke="#ccc" stroke-width="1" />
+                        <polygon points="50,30 75,45 65,75 35,75 25,45" fill="var(--accent)" fill-opacity="0.3"
+                            stroke="var(--accent)" stroke-width="1" />
+                        <text x="45" y="8" font-size="8">매운맛</text>
+                        <text x="92" y="42" font-size="8">향신료</text>
+                        <text x="77" y="98" font-size="8">고수</text>
+                        <text x="5" y="98" font-size="8">단맛</text>
+                        <text x="0" y="42" font-size="8">짠맛</text>
+                    </svg>
+                    <p style="font-size: 11px; color: var(--text-secondary); margin-top: 10px;">향신료 강도 분석</p>
+                </div>
+            </div>
+
+            <!-- 스택형 바 차트 -->
+            <div class="card" style="grid-column: span 2; padding:0; overflow:hidden;">
+                <div
+                    style="background:#f5efe9; padding:15px 20px; border-bottom:1px solid #eaddcf; font-weight:bold; color:var(--text-main);">
+                    Service Satisfaction Stacked Bar</div>
+                <div style="padding: 20px; background:#fdfdfd;">
+                    <div style="display:flex; height:20px; border-radius:5px; overflow:hidden; margin-top:10px;">
+                        <div style="width:60%; background:var(--accent);" title="만족"></div>
+                        <div style="width:25%; background:#d4c4b5;" title="보통"></div>
+                        <div style="width:15%; background:#eaddcf;" title="실망"></div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-top:5px; font-size:12px;">
+                        <span>만족 (60%)</span><span>보통 (25%)</span><span>실망 (15%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+        </div>
+        </div>
+        </div>
+        </div>
+    </main>
+</body>
+
+</html>
