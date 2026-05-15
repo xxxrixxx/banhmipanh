@@ -243,66 +243,68 @@
         
         <div class="card" style="margin-top: 20px;">
             <h3>감정별 상세 리뷰 탐색</h3>
-            <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:15px; margin-bottom: 20px;">
-                <button class="emotion-filter" data-emotion="기대"
-                    style="padding:20px; background:white; border:1px solid #ddd; border-radius:12px; cursor:pointer; text-align:center;">🤩<br>기대</button>
-                <button class="emotion-filter" data-emotion="만족"
-                    style="padding:20px; background:white; border:1px solid #ddd; border-radius:12px; cursor:pointer; text-align:center;">😊<br>만족</button>
-                <button class="emotion-filter" data-emotion="실망"
-                    style="padding:20px; background:white; border:1px solid #ddd; border-radius:12px; cursor:pointer; text-align:center;">😟<br>실망</button>
-                <button class="emotion-filter" data-emotion="분노"
-                    style="padding:20px; background:white; border:1px solid #ddd; border-radius:12px; cursor:pointer; text-align:center;">😡<br>분노</button>
+            <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-bottom: 20px;">
+                <button class="emotion-filter" data-emotion="기대" style="padding:10px; background:white; border:1px solid #ddd; border-radius:8px; cursor:pointer;">🤩 기대</button>
+                <button class="emotion-filter" data-emotion="만족" style="padding:10px; background:white; border:1px solid #ddd; border-radius:8px; cursor:pointer;">😊 만족</button>
+                <button class="emotion-filter" data-emotion="당황" style="padding:10px; background:white; border:1px solid #ddd; border-radius:8px; cursor:pointer;">😳 당황</button>
+                <button class="emotion-filter" data-emotion="충격" style="padding:10px; background:white; border:1px solid #ddd; border-radius:8px; cursor:pointer;">😱 충격</button>
+                <button class="emotion-filter" data-emotion="피로" style="padding:10px; background:white; border:1px solid #ddd; border-radius:8px; cursor:pointer;">😫 피로</button>
+                <button class="emotion-filter" data-emotion="분노" style="padding:10px; background:white; border:1px solid #ddd; border-radius:8px; cursor:pointer;">😡 분노</button>
+                <button class="emotion-filter" data-emotion="중독성" style="padding:10px; background:white; border:1px solid #ddd; border-radius:8px; cursor:pointer;">😋 중독성</button>
+                <button class="emotion-filter" data-emotion="실망" style="padding:10px; background:white; border:1px solid #ddd; border-radius:8px; cursor:pointer;">😟 실망</button>
+                <button class="emotion-filter" data-emotion="재도전욕구" style="padding:10px; background:white; border:1px solid #ddd; border-radius:8px; cursor:pointer;">🔄 재도전</button>
             </div>
 
             <div id="detail-list" style="margin-top:20px; padding:15px; background:#f9f7f4; border-radius:8px;">
-                <p style="text-align:center; color:#777;">감정 카드를 선택하면 상세 리뷰가 나타납니다.</p>
+                <p style="text-align:center; color:#777;">감정 버튼을 선택하면 상세 리뷰가 나타납니다.</p>
             </div>
         </div>
     </main>
 
     <script>
-        // 기존 툴팁 스타일과 호환을 위해 추가
-        const style = document.createElement('style');
-        style.innerHTML = `
-            .bar-tooltip {
-                position: absolute;
-                background: #333;
-                color: #fff;
-                padding: 4px 8px;
-                border-radius: 4px;
-                font-size: 10px;
-                visibility: hidden;
-                z-index: 1000;
-            }
-        `;
-        document.head.appendChild(style);
-
         const reviewData = {
+            "기대": [
+                {"name": "한쏠로", "text": "기대만큼 실망이 큼..맛도 쏘쏘.의자도 너무 딱딱."},
+                {"name": "정두용", "text": "새우는 괜찮았는데 고기가 들어간 반미는 질겨서 씹을수가 없었고 다 먹고나서 속이 안 좋았어요. CCCP가서 먹었는데 거기 냅킨에 몰래 싸서 버렸네요. 기대보다 별로 였습니다."},
+                {"name": "YEONKYUNG CHOI", "text": "워낙유명하고 맛있는곳이라 포장도 대기시간 생각하고 오세요. 기다렸다 먹어도 맛있어요~"},
+                {"name": "김은비", "text": "소고기 치즈로 주문했습니다~ 빵도 바삭한데 딱딱하지 않아서 천장 까질 일도 없어요! 소고기 양념도 맛있고 치즈도 적당히 들어가있는데 너무 기대를 했는지 무조건 먹어야해!!!이건 아니에요ㅎㅎ근데 간단하게 먹기에 너무 저렴하고 좋아요! 아주 조금 생각 맛? 나는데 생각 안좋아하는 제가 먹기에도 자극적이지 않아서…"},
+                {"name": "Teo Won", "text": "반미의 성지 반미 판에 다녀왔습니다. 기대를 너무해서 그런지 그냥 그랬습니다.…"},
+                {"name": "H Lee", "text": "현금결제. 카드안됨. 나트랑 시내 유명한 반미. 받자마자 먹는 반미는 빵이 다합니다. 속내용 이 엄청난 것 같진않고 바게트가 맛있습니다. 믹스, 소고기 치즈, 새우 등 여행기간 중 시내에서 반미생각날때 마다 사먹었어요. 망고스무디, 코코넛, 탄산도 판매하고 안쪽으로 들어가면 기다리거나 앉아서 먹을수있는 장소가 있어요."},
+                {"name": "곽철 (작은토끼)", "text": "예상보다 향신료 쎄고 입에 안맞았음. 써브웨이 느낌 생각했는데 향신료 쎄고 빵 맛있는 써브 웨이라고 생각하믄될듯. 2층 올라가는 계단이 너무 좁아 내려올때 쪼끔 무서움. 빵 부스러기 많이나옴"},
+                {"name": "류성렬", "text": "주문하고 기다리는데 생각보다 빨라서 괜찮았음 짜다는 리뷰가 간간히 있어 한편으로 걱정했 지만 맛있게먹었습니다ㅎㅎ 재료맛은 쏘쏘 빵이 존맛탱"},
+                {"name": "김인영", "text": "베스트셀러 소고기랑 왕새우치즈 시켰는데 소고기에는 향신료 맛이 좀 나서 그냥 그랬고 새우가 더 맛있었어요 근데 기대했던것보다 진짜 맛있다!! 는 아니고 한번 먹어볼만한 정도였어요"},
+                {"name": "minhui kim", "text": "기대이상이에요! 빵이 엄청 바삭바삭 하더라고요. 웨이팅이 긴게 단점이지만 매장 안쪽에 웨 이팅존이 있어요. 생각보다 진짜 커서 엄청 배불렀어요 !"}
+            ],
             "만족": [
                 {"name": "오예인 GOH JUI YI", "text": "음식은 맛있고 양도 많아요"},
                 {"name": "AMANDA ANG KAH HUI", "text": "맛있어요"},
-                {"name": "여행자1", "text": "반미 판 정말 맛있습니다."},
-                {"name": "여행자2", "text": "나트랑 필수 맛집이에요."},
-                {"name": "여행자3", "text": "재료가 신선합니다."},
-                {"name": "여행자4", "text": "다시 가고 싶어요."},
-                {"name": "여행자5", "text": "최고의 맛."},
-                {"name": "여행자6", "text": "친절하고 맛있어요."},
-                {"name": "여행자7", "text": "또 방문할게요."},
-                {"name": "여행자8", "text": "강력 추천합니다."},
-                {"name": "여행자9", "text": "잊을 수 없는 맛."}
+                {"name": "강가연", "text": "채소가 굉장히 맛있었어요 명동 처음 놀러왔는데 만족스러웠습니다!><"},
+                {"name": "이용국", "text": "ㅇ 친절과 분위기 좋은 식당 ㅇ 한복사진촬영 써비스공간 있음(외국관광객에게 인기) ㅇ 약40명 정도의 단체식사 및 회의도 가능(빔프로젝터, 마이크시설 등)"},
+                {"name": "이행철", "text": "가장 맛있는 한식요리"},
+                {"name": "Mi Kyong Kim Shim", "text": "외국인 분들과 같이 방문했는데 좋았습니다. 한복 체험 할 수 있고 사진도 찍어주시고 재밌는 체험도 할 수 있어서 좋았어요!!"},
+                {"name": "tom H", "text": "와우!! 여기 맛있군요! 하도 유튜버와 구글 리뷰에 당해서 혹시나 해서 믹스로 하나만 먹었 습니다.…"},
+                {"name": "리버민지", "text": "홀에서 먹기는 어렵고 주문 후 음식 받는데까지 약20분 걸린듯 합니다 소고기 먹었는데 향신 료 맛이 좀 나서 저는 별로였지만 부모님은 새우랑 계란 먹었는데 맛있다고 하시네용 그치만 오래 기다려서 먹긴 아까운 집 (?)"},
+                {"name": "최진욱", "text": "최고의 반미집 빵도 부드러워서 먹기 편하고 내용물도 신선함"},
+                {"name": "Raban", "text": "바게트빵이 진짜 맛있음. 안에 야채나 구성은 적당하고 맛남. 여기 살면 매일 아침마다 먹고 싶음. 야채가 섭웨처럼 많이 들어갔으면 좋겠는데 그게 아쉽. 야채 마니 먹고 싶어요. 야채 추가 옵션 좀 만들어주세요 ㅋㅋ 아침에 가서 웨이팅은 없었음"}
             ],
-            "실망": [
-                {"name": "한쏠로", "text": "기대만큼 실망이 큼..맛도 쏘쏘.의자도 너무 딱딱."},
-                {"name": "정두용", "text": "새우는 괜찮았는데 고기가 들어간 반미는 질겨서 씹을수가 없었고 다 먹고나서 속이 안 좋았어요. CCCP가서 먹었는데 거기 냅킨에 몰래 싸서 버렸네요. 기대보다 별로 였습니다."}
+            "당황": [
+                {"name": "minhui kim", "text": "기대이상이에요! 빵이 엄청 바삭바삭 하더라고요. 웨이팅이 긴게 단점이지만 매장 안쪽에 웨 이팅존이 있어요. 생각보다 진짜 커서 엄청 배불렀어요 !"},
+                {"name": "나인", "text": "줄 많이 서있어서 당황, 다만 20분 정도만에 후루룩 끝 주문하면 진동벨 줘서 편리! 다만 공 장형으로 생산한 반미이고 정신없이 만들다 보니 음식 수준은 높지 않은거 같다. 차라리 반미 밖에서 먹어도 비슷한 맛일듯. 굳이 찾아갈 맛은 전혀 아님, 줄 서는 것도 굳이 노 추천"},
+                {"name": "옥지", "text": "진짜 나트랑 여행중에 5번 이상 방문 했을 정도로 맛있게 먹었던 곳이에요. 사실 저보다 빵순 이인 엄마가 더 좋아하셔서 하루가 멀다하고 갔네요.ㅎㅎ 새우치즈랑 소고기맛만 먹었구요. 바로 먹으면 바삭하고 따듯하고 치즈풍미가 좋습니다. 아직 나트랑인데 오늘도 방문 예정이에요."},
+                {"name": "gayoung bae", "text": "음식은 맛있는데 웨이팅 미친수준 30분이상 기다렸슴다........"},
+                {"name": "김다빈", "text": "향신료 예민하신분은 소고기 치즈 비추. 새우 치즈 마싯서용 근데 ... 대기 20분 이상해서 겨우 받았는데…"},
+                {"name": "이재준", "text": "자국민 주문 하면 먼저 주는거 아니지 않나? 어이가 없네 그럼 주문을 순서대로 뭐하러 받음? 4개 시켰는데 3개 나오고 나보다 늦게온사람 다주고 나서 한개 더 얹어서 식어빠진 3개를 먹게하네요? 소문난 잔치에 먹을거 없다더니 걍 엄마반미로 가세요"},
+                {"name": "Joohee Jun", "text": "반미는 늘 맛있지만! 안내 문구에도 패스트 푸드가 아니라고 써 있지만! 뭔가 주문 체계가 꼬 인건지 사람이 별로 없던 오전에, 벨이 울렸지만 또 기다리라고! 오전 8시경 주문하고 40분도 지나서? 받았어요;;;; 제 앞에 2~3팀 있었는데ㅠㅜ 뭐 배달도 있었을테지만.. 개인적으로 15분이상 기다려서 먹을정도는 아닌거 같아요. 다음에 혹시 다시 먹는다면 그랩으로 시키고 그냥 잊어버리고 있으면 좀 더 만족할듯."},
+                {"name": "0 Ytinrete", "text": "음.. 로컬맛집 찾아서 돌아다니는 사람들한테는 박한평가를 받을것 같고, 아이동반 여행객들은 익숙하고 평타이상 치는 맛이라서 좋은 평가를 받을것 같습니다. 일단 노점들 위생을 생각하면 노약자 동반 여행객 들이 가기에는 이곳 만 한 반미집이 없습니다. 근데 베트남다운 반미를 먹어야겠다 하시는 분들은 다른 모험을 떠나 시는걸 추천드려요."},
+                {"name": "한한", "text": "줄설정도 맛집은 아니에요. 어느 식당이던 식당 손님 반이상이 현지인 아닌식당은 맛집은 아니라고 생각합니다. 그냥 보통의 반미에요. 지나가다 줄 안서고 먹을수있다면 관광객 입장에서 경험해볼만한 맛 이지만. 짧은 여행일정에서 줄서가며 기다릴 맛집은 아닌것같습니다. 현지인들이 제게 왜 한국인은 저 식당에 줄서서 먹는 지 이해 안간다라고 자주 말하는 식당중 이곳이 대표적이에요. 더운데 20분씩 땀흘리며 기다리는 한국분들 자주보니..."},
+                {"name": "마초향기", "text": "일요일기준 점심시간때 30분이상 기다렸습니다 2층이 시원하니까 2층에서 한명기다리고 한명은 cccp가서 자리잡아놓으면 좋습니다요 ㅎ"}
             ],
-            "분노": [
-                {"name": "Wuri", "text": "정신없이 좁은 곳이지만 확실히 반미 특화! 맛은 있내요!…"},
-                {"name": "김건우", "text": "최악입니다 주문 중간중간 확인하세요 누락 시켜놓고 미안하단말도 없이 뻔뻔하게 나옵니다 다들 싸가지가 없어요"}
-            ],
-            "기대": [
-                {"name": "Teo Won", "text": "반미의 성지 반미 판에 다녀왔습니다. 기대를 너무해서 그런지 그냥 그랬습니다.…"},
-                {"name": "무계획여행가", "text": "나트랑에서 가장 유명한 반미집 유명해서 너무 큰 기대를 하고 가지는 말자 맛은 그냥 그렇다 다른 베트남 도시들에 있는 유명한 반미 집보다 특별히 나은 점이 있는지 모르겠다"}
-            ]
+            "충격": [{"name": "정덩정정", "text": "와진심 존맛임....새우반미 대박이다"}, {"name": "최원나", "text": "간식으로 먹었는데 너무 맛있어서 깜짝 놀랐어요 한국인은 다 좋아할 맛이예요 손님 많은데 직원분들이 친절하시네요 포장해서 길거리 산책하면서 먹었어요 재방문하고 싶은 곳이예요"}],
+            "피로": [{"name": "리버민지", "text": "홀에서 먹기는 어렵고 주문 후 음식 받는데까지 약20분 걸린듯 합니다"}, {"name": "Raban", "text": "바게트빵이 진짜 맛있음. 안에 야채나 구성은 적당하고 맛남. 여기 살면 매일 아침마다 먹고 싶음. 야채가 섭웨처럼 많이 들어갔으면 좋겠는데 그게 아쉽. 야채 마니 먹고 싶어요. 야채 추가 옵션 좀 만들어주세요 ㅋㅋ 아침에 가서 웨이팅은 없었음"}, {"name": "Anna", "text": "웨이팅 있다고 해서 그랩으로 배달주문해먹었어요! 타이거새우, 비프치즈, 치킨.. 다 맛있어요 특히 빵이 엄청 바삭해요 ㅎㅎ 추천합니다 !!"}, {"name": "오하나", "text": "맛 괜찮아요 오래기다려서 먹을정도는 아닙니다"}, {"name": "이기헌", "text": "웨이팅은 5분정도 했고 빵도 바삭하고 맛있네요"}, {"name": "정효근", "text": "안쪽 깊게들어가면 에어컨나오는 넓은 곳 있어요 밖에서 힘들게 먹지말고 안에 들어가서 먹음 좋아요 왕새우치즈구이 맛있는데 간혹 소스 적은경우있어서 소스많이달라고하면좋을듯 반잘라달라고하면 먹기편해 요 강추"}, {"name": "송정섭", "text": "웨이팅이 좀 있어요. 그래도 맛 보시면 좋아요"}, {"name": "minhui kim", "text": "기대이상이에요! 빵이 엄청 바삭바삭 하더라고요. 웨이팅이 긴게 단점이지만 매장 안쪽에 웨 이팅존이 있어요. 생각보다 진짜 커서 엄청 배불렀어요 !"}, {"name": "beulah SON", "text": "맛있지만 너무 오래 기다릴 만한 맛까지는 아님."}, {"name": "soyun bang", "text": "구매해서 ccc카페가서 먹었어요:)"}],
+            "분노": [{"name": "문정열", "text": "나.보다 늦게 오더한 사람 주문은 나왓는데 내 주문은 안나와서 50분 기다리다 왜 안냐오냐고 햇더니. 네 주문이 누락되엇다고 하네요."}, {"name": "홍영환", "text": "직원분이 누락해서 40분 기다렸네요.. 안나오면 물어보시는걸 추천드립니다"}, {"name": "Wuri", "text": "정신없이 좁은 곳이지만 확실히 반미 특화! 맛은 있내요!…"}, {"name": "강지안", "text": "3일내내 갔던 반미맛집입니다 남편이랑 너무 맛있다고 감탄하면서 먹었어요 근데 진짜 따뜻 할때 먹어야 그맛이 극대화! 약간 대기시간이 있으나 충분히 기다릴만한 시간이이요"}, {"name": "ᄋᄌᄉ", "text": "이렇게까지 줄 서서 먹는 이유를 모르겠음.. 그리고 계산하는 직원이 바빠서 그런지 불친절하고 돈 계산 잘못햇더니 승을 냄"}, {"name": "김유수", "text": "음식 정말 정말 강추 또 오면 또먹고 싶음 왕새우 치즈 구이 진짜 레전드 오브 레전드 무조건 먹어야함 저처럼 편식쟁이들은 야채 다빼고 먹어도 개꿀맛 진짜 맛있음 가격 저렴함 아쉬운거는 화장실 고수냄새 디퓨저가 너무 강함 진짜 음식 맛은 깔게 하나도 없음 하루에 2개씩 먹는중"}, {"name": "빙고bingo", "text": "나에게는 맛이 많이 짜게 느꼈습니다. 사람이 많이 붐비고 할 때는 조심하세요. 배탈 날 수도 있습니다. 저는 예민한 편도 아닌데 바로 화장실로 갔어요. 고기가 덜 구워진 것 같아요."}, {"name": "YUKYUNG YOON", "text": "반미빵이 너무맛있어요 사람많아서 오래기다렸어요 직원들은 그닥 친절하지 않아요 진동벨 주긴하는데 중간중간 누락되니 확인해야되겠더라구요 포장해서 근처 cccp커피 가서 커피랑 같이 먹으니 꿀맛!!!"}, {"name": "김건우", "text": "최악입니다 주문 중간중간 확인하세요 누락 시켜놓고 미안하단말도 없이 뻔뻔하게 나옵니다 다들 싸가지가 없어요"}, {"name": "김민철", "text": "삼겹살반미 먹었는데 안에 작은뼈가 있었음 그래도 맛잇음. 계란반미는 비추 너무 평범함 못생기게구운계란후라이임. 새우반미 개추천. 믹스도 무난 추천. 한국여자들 근처에서 짜증내는소리좀 그만내고 조용히 먹고가길."}],
+            "중독성": [{"name": "윤대호", "text": "맛이 있네요 또 먹으러올게요"}, {"name": "B Rown", "text": "포장하고 조금 늦게먹었지만 맛있습니다 바로먹으면 더 맛있을거 같아요 리뷰쓰는데 반미가 또먹고 싶네요…"}, {"name": "워니", "text": "깔끔하고 맛도있고 나트랑 여행중 꼭 한번쯤은 먹어봐도 좋을것 같습니다 추천으로 미트볼 또는 새우 맛있습니다^^"}, {"name": "조혜진", "text": "믹스랑 닭고기구이 먹었는데 너무 맛있었어요! 다음에 또 나트랑 가면 먹을거 같아요!"}, {"name": "박수진", "text": "공항에서 너무 잘 이용했어요 핸드폰도 차에 두고내렷는데 바로 다시 가져다주시고 연락도 잘되고 너무 좋습니다!"}, {"name": "이하연 (찬랑이맘)", "text": "오랜만에 나트랑 다시 왔더니 불고기치즈반미 생각나서 또 먹었어요. 더 맛있어진 듯. ㅎㅎ 빵이 바삭하고 맛있어요."}, {"name": "soyun bang", "text": "구매해서 ccc카페가서 먹었어요:) 바삭하고 양념도 맛잇고 그렇게 오래 걸리지도 않았습니다!! 재방문의사 있습니다"}, {"name": "김유수", "text": "음식 정말 정말 강추 또 오면 또먹고 싶음 왕새우 치즈 구이 진짜 레전드 오브 레전드 무조건 먹어야함 저처럼 편식쟁이들은 야채 다빼고 먹어도 개꿀맛 진짜 맛있음 가격 저렴함 아쉬운거는 화장실 고수냄새 디퓨저가 너무 강함 진짜 음식 맛은 깔게 하나도 없음 하루에 2개씩 먹는중"}, {"name": "오레오", "text": "와.. 베트남담에 또오면 또먹을거에요 별 기대없이 새우들어간 베스트메뉴 먹었는데 배부르니까 하나로 둘이 나눠먹었는데 하나씩 살걸 후회했어요 대기가 많아서 길가에서 오래 기다리는게 단점이지만 아주아주 맛있었어요 마지막날에 또먹고 싶었는데 시간 부족해서 못산게 아쉬워요…"}, {"name": "Joohee Jun", "text": "반미는 늘 맛있지만! 안내 문구에도 패스트 푸드가 아니라고 써 있지만! 뭔가 주문 체계가 꼬 인건지 사람이 별로 없던 오전에, 벨이 울렸지만 또 기다리라고! 오전 8시경 주문하고 40분도 지나서? 받았어요;;;; 제 앞에 2~3팀 있었는데ㅠㅜ 뭐 배달도 있었을테지만.. 개인적으로 15분이상 기다려서 먹을정도는 아닌거 같아요. 다음에 혹시 다시 먹는다면 그랩으로 시키고 그냥 잊어버리고 있으면 좀 더 만족할듯."}],
+            "실망": [{"name": "한쏠로", "text": "기대만큼 실망이 큼..맛도 쏘쏘.의자도 너무 딱딱."}, {"name": "정두용", "text": "새우는 괜찮았는데 고기가 들어간 반미는 질겨서 씹을수가 없었고 다 먹고나서 속이 안 좋았어요. CCCP가서 먹었는데 거기 냅킨에 몰래 싸서 버렸네요. 기대보다 별로 였습니다."}, {"name": "조요미", "text": "쏘쏘 차라리 반미코티엔처럼 칠리소스를 구비해놓는게 어떨까 하는 맴... 어차피 관광객들 상대로해서 가격대도 어느정도 있는 것 같은데, 칠리소스 있으면 사람들 만족도가 훨씬 좋을듯. 호불호가 갈리는 맛은 아닌데... 그렇다고 줄서서 찾아먹을만한 맛은 아닙니다.…"}, {"name": "김지영", "text": "반미 처음 먹어봄 맛있어요! 소고기랑 새우시켜서 나눠먹었고 역시나 베트남은 새우가 탱글해서 맛있어요. 소고기는 쏘쏘…"}, {"name": "류성렬", "text": "주문하고 기다리는데 생각보다 빨라서 괜찮았음 짜다는 리뷰가 간간히 있어 한편으로 걱정했 지만 맛있게먹었습니다ㅎㅎ 재료맛은 쏘쏘 빵이 존맛탱"}, {"name": "까꿍", "text": "가성비 별로네요. 광고빨이네요. 소스양념이 넘 진함. 맛없음. 베트남 반미가 무슨 4천원씩하 냐?"}, {"name": "YUKYUNG YOON", "text": "반미빵이 너무맛있어요 사람많아서 오래기다렸어요 직원들은 그닥 친절하지 않아요 진동벨 주긴하는데 중간중간 누락되니 확인해야되겠더라구요 포장해서 근처 cccp커피 가서 커피랑 같이 먹으니 꿀맛!!!"}, {"name": "Kyounghwa Kim", "text": "한국인 입맛 완벽 공략 소고기치즈가 가장 맛있습니다. 왕새우치즈는 쏘쏘입니다. 양념이 느 끼함"}, {"name": "윤다연", "text": "아 베트남 반미는 차원이달라 병에 걸림 다 필요없고 새우반미 드세여 나머지는 별로에여"}, {"name": "이강빈", "text": "어느시간대에 가도 사람이 꽤 있습니다! 반미 맛은 막 엄청 특별하게 맛있는 맛은 아니지만 최소한 실망은 하지않을 정도의 맛이고 빵 크기가 크다고 하나만 시키고 그러지 마세요 생각보다 먹으면 양 그렇게 안많습니다! 반미는 받고 난 후에 안쪽 거게에서 먹고갈 수 있습니다"}],
+            "재도전욕구": [{"name": "윤대호", "text": "맛이 있네요 또 먹으러올게요"}, {"name": "B Rown", "text": "포장하고 조금 늦게먹었지만 맛있습니다 바로먹으면 더 맛있을거 같아요 리뷰쓰는데 반미가 또먹고 싶네요…"}, {"name": "워니", "text": "깔끔하고 맛도있고 나트랑 여행중 꼭 한번쯤은 먹어봐도 좋을것 같습니다 추천으로 미트볼 또는 새우 맛있습니다^^"}, {"name": "조혜진", "text": "믹스랑 닭고기구이 먹었는데 너무 맛있었어요! 다음에 또 나트랑 가면 먹을거 같아요!"}, {"name": "박수진", "text": "공항에서 너무 잘 이용했어요 핸드폰도 차에 두고내렷는데 바로 다시 가져다주시고 연락도 잘되고 너무 좋습니다!"}, {"name": "이하연 (찬랑이맘)", "text": "오랜만에 나트랑 다시 왔더니 불고기치즈반미 생각나서 또 먹었어요. 더 맛있어진 듯. ㅎㅎ 빵이 바삭하고 맛있어요."}, {"name": "soyun bang", "text": "구매해서 ccc카페가서 먹었어요:) 바삭하고 양념도 맛잇고 그렇게 오래 걸리지도 않았습니다!! 재방문의사 있습니다"}, {"name": "김유수", "text": "음식 정말 정말 강추 또 오면 또먹고 싶음 왕새우 치즈 구이 진짜 레전드 오브 레전드 무조건 먹어야함 저처럼 편식쟁이들은 야채 다빼고 먹어도 개꿀맛 진짜 맛있음 가격 저렴함 아쉬운거는 화장실 고수냄새 디퓨저가 너무 강함 진짜 음식 맛은 깔게 하나도 없음 하루에 2개씩 먹는중"}, {"name": "오레오", "text": "와.. 베트남담에 또오면 또먹을거에요 별 기대없이 새우들어간 베스트메뉴 먹었는데 배부르니까 하나로 둘이 나눠먹었는데 하나씩 살걸 후회했어요 대기가 많아서 길가에서 오래 기다리는게 단점이지만 아주아주 맛있었어요 마지막날에 또먹고 싶었는데 시간 부족해서 못산게 아쉬워요…"}, {"name": "Joohee Jun", "text": "반미는 늘 맛있지만! 안내 문구에도 패스트 푸드가 아니라고 써 있지만! 뭔가 주문 체계가 꼬 인건지 사람이 별로 없던 오전에, 벨이 울렸지만 또 기다리라고! 오전 8시경 주문하고 40분도 지나서? 받았어요;;;; 제 앞에 2~3팀 있었는데ㅠㅜ 뭐 배달도 있었을테지만.. 개인적으로 15분이상 기다려서 먹을정도는 아닌거 같아요. 다음에 혹시 다시 먹는다면 그랩으로 시키고 그냥 잊어버리고 있으면 좀 더 만족할듯."}]
         };
 
         document.querySelectorAll('.emotion-filter').forEach(btn => {
@@ -319,7 +321,7 @@
                 const container = document.getElementById('detail-list');
                 
                 if (reviews.length > 0) {
-                    container.innerHTML = reviews.slice(0, 10).map(r => 
+                    container.innerHTML = reviews.sort(() => 0.5 - Math.random()).slice(0, 10).map(r => 
                         '<div style="padding:10px 0; border-bottom:1px dashed #ddd;">' +
                             '<p style="margin:0;">"' + r.text + '" - <strong>' + r.name + '</strong></p>' +
                         '</div>'
@@ -329,6 +331,7 @@
                 }
             });
         });
+
 
         // 타임라인 차트 데이터 렌더링
         const timelineData = {
@@ -347,20 +350,6 @@
             bar.style.background = data.score > 30 ? 'var(--accent)' : '#d4c4b5';
             bar.style.borderRadius = '4px';
             bar.style.cursor = 'pointer';
-            
-            bar.addEventListener('mouseover', (e) => {
-                tooltip.style.visibility = 'visible';
-                tooltip.innerHTML = `순번: ${Number(key) + 1}<br>점수: ${data.score}<br><small style="color:#aaa;">(키워드 빈도 환산점수)</small>`;
-            });
-            
-            bar.addEventListener('mousemove', (e) => {
-                tooltip.style.left = `${e.pageX + 10}px`;
-                tooltip.style.top = `${e.pageY - 45}px`;
-            });
-            
-            bar.addEventListener('mouseout', () => {
-                tooltip.style.visibility = 'hidden';
-            });
             
             chartContainer.appendChild(bar);
         });
